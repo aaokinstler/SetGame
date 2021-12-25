@@ -8,17 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		0BA55142277380990066E63E /* SetGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA55141277380990066E63E /* SetGameApp.swift */; };
-		0BA55144277380990066E63E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA55143277380990066E63E /* ContentView.swift */; };
+		0BA55144277380990066E63E /* SetGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA55143277380990066E63E /* SetGameView.swift */; };
 		0BA551462773809A0066E63E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BA551452773809A0066E63E /* Assets.xcassets */; };
 		0BA551492773809A0066E63E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BA551482773809A0066E63E /* Preview Assets.xcassets */; };
+		0BA55150277381230066E63E /* SetGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA5514F277381230066E63E /* SetGameModel.swift */; };
+		0BA5515227738C3C0066E63E /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA5515127738C3C0066E63E /* Diamond.swift */; };
+		0BA551542774D6770066E63E /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA551532774D6770066E63E /* SetGame.swift */; };
+		0BA5515627776A240066E63E /* AnyShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA5515527776A240066E63E /* AnyShape.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0BA5513E277380990066E63E /* SetGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SetGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BA55141277380990066E63E /* SetGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameApp.swift; sourceTree = "<group>"; };
-		0BA55143277380990066E63E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0BA55143277380990066E63E /* SetGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameView.swift; sourceTree = "<group>"; };
 		0BA551452773809A0066E63E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0BA551482773809A0066E63E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0BA5514F277381230066E63E /* SetGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameModel.swift; sourceTree = "<group>"; };
+		0BA5515127738C3C0066E63E /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
+		0BA551532774D6770066E63E /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
+		0BA5515527776A240066E63E /* AnyShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyShape.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,9 +60,13 @@
 			isa = PBXGroup;
 			children = (
 				0BA55141277380990066E63E /* SetGameApp.swift */,
-				0BA55143277380990066E63E /* ContentView.swift */,
+				0BA55143277380990066E63E /* SetGameView.swift */,
+				0BA551532774D6770066E63E /* SetGame.swift */,
+				0BA5515127738C3C0066E63E /* Diamond.swift */,
+				0BA5514F277381230066E63E /* SetGameModel.swift */,
 				0BA551452773809A0066E63E /* Assets.xcassets */,
 				0BA551472773809A0066E63E /* Preview Content */,
+				0BA5515527776A240066E63E /* AnyShape.swift */,
 			);
 			path = SetGame;
 			sourceTree = "<group>";
@@ -137,8 +149,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BA55144277380990066E63E /* ContentView.swift in Sources */,
+				0BA5515227738C3C0066E63E /* Diamond.swift in Sources */,
+				0BA55144277380990066E63E /* SetGameView.swift in Sources */,
+				0BA551542774D6770066E63E /* SetGame.swift in Sources */,
+				0BA5515627776A240066E63E /* AnyShape.swift in Sources */,
 				0BA55142277380990066E63E /* SetGameApp.swift in Sources */,
+				0BA55150277381230066E63E /* SetGameModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
