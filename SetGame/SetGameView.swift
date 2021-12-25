@@ -16,7 +16,8 @@ struct SetGameView: View {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
                     ForEach(game.cardsOnTable) { card in
-                        CardView(card: card)
+                        let isSelected = game.arrayOfChosenCards.contains(where: {$0 == card.id})
+                        CardView(card: card, isSelected: isSelected)
                             .aspectRatio(2/3, contentMode: .fit)
                             .onTapGesture {
                                 game.selectCard(card.id)
@@ -60,10 +61,11 @@ struct SetGameView: View {
 struct CardView: View {
     
     let card: SetGameModel.Card
+    let isSelected: Bool
     
     var body: some View {
         ZStack{
-            RoundedRectangle(cornerRadius: 10).strokeBorder()
+            let cardShape = RoundedRectangle(cornerRadius: 10)
             VStack{
                 ForEach(0..<card.numberOfShapes.rawValue) {_ in
                     let shape = card.shape.getView() 
@@ -72,6 +74,12 @@ struct CardView: View {
             }
             .padding()
             .foregroundColor(card.color.value)
+            
+            if isSelected {
+                cardShape.strokeBorder(style: StrokeStyle(lineWidth: 5)).foregroundColor(.yellow)
+            } else {
+                cardShape.strokeBorder()
+            }
         }
     }
 }

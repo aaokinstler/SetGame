@@ -51,9 +51,19 @@ struct SetGameModel {
         }
     }
     
-//    mutating func selectCard(_ id: Int) {
-//        cardsOnTable.first(where: <#T##(Card) throws -> Bool#>)
-//    }
+    mutating func selectCard(_ id: Int) {
+//        let cardId = cardsOnTable.firstIndex(where: {$0.id == id})!
+        if let selectetdCardIndex = arrayOfChosenCards.firstIndex(where: {$0 == id}) {
+            arrayOfChosenCards.remove(at: selectetdCardIndex)
+            return
+        }
+        
+        if arrayOfChosenCards.count == 3 {
+            // TODO: check if previuosly cards is match and replace them
+        }
+        
+        arrayOfChosenCards.append(id)
+    }
     
     struct Card: Identifiable {
         let id: Int
