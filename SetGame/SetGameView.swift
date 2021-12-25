@@ -12,13 +12,46 @@ struct SetGameView: View {
     @ObservedObject var game: SetGame
     
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                ForEach(game.cardsOnTable) { card in
-                    CardView(card: card).aspectRatio(2/3, contentMode: .fit)
+        VStack {
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
+                    ForEach(game.cardsOnTable) { card in
+                        CardView(card: card)
+                            .aspectRatio(2/3, contentMode: .fit)
+                            .onTapGesture {
+                                game.selectCard(card.id)
+                            }
+                    }
                 }
-            }
+            }.padding(.horizontal)
+            bottomBar
+        }
+    }
+    
+    var bottomBar: some View {
+        HStack{
+            newGame
+            Spacer()
+            Text("\(String(game.cardsInDeck))")
+            Spacer()
+            addThreeCards
         }.padding()
+    }
+    
+    var addThreeCards: some View {
+        Button {
+            game.addThreeCards()
+        } label: {
+            Text("Add cards")
+        }.disabled(game.cardsInDeck == 0)
+    }
+    
+    var newGame: some View {
+        Button {
+            game.newGame()
+        } label: {
+            Text("New game")
+        }
     }
 }
 
@@ -39,7 +72,6 @@ struct CardView: View {
             }
             .padding()
             .foregroundColor(card.color.value)
-            
         }
     }
 }

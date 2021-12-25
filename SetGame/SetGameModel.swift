@@ -9,8 +9,15 @@ import Foundation
 import SwiftUI
 
 struct SetGameModel {
-    private(set) var deck: Array<Card>
+    private var deck: Array<Card>
     private(set) var cardsOnTable: Array<Card>
+    private(set) var arrayOfChosenCards: Array<Int> = []
+    
+    var cardsInDeck: Int {
+        deck.count
+    }
+    
+    
     
     init() {
         
@@ -34,8 +41,19 @@ struct SetGameModel {
         for _ in 0...11 {
             cardsOnTable.append(deck.removeFirst())
         }
-        
     }
+    
+    mutating func addThreeCards() {
+        if deck.count > 0 {
+            for _ in 0...2 {
+                cardsOnTable.append(deck.removeFirst())
+            }
+        }
+    }
+    
+//    mutating func selectCard(_ id: Int) {
+//        cardsOnTable.first(where: <#T##(Card) throws -> Bool#>)
+//    }
     
     struct Card: Identifiable {
         let id: Int
