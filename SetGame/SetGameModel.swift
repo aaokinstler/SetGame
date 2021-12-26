@@ -11,13 +11,12 @@ import SwiftUI
 struct SetGameModel {
     private var deck: Array<Card>
     private(set) var cardsOnTable: Array<Card>
-    private(set) var arrayOfChosenCards: Array<Int> = []
+    private(set) var arrayOfIdsOfChosenCards: Array<Int> = []
+    private(set) var isMatched = false
     
     var cardsInDeck: Int {
         deck.count
     }
-    
-    
     
     init() {
         
@@ -52,17 +51,75 @@ struct SetGameModel {
     }
     
     mutating func selectCard(_ id: Int) {
-//        let cardId = cardsOnTable.firstIndex(where: {$0.id == id})!
-        if let selectetdCardIndex = arrayOfChosenCards.firstIndex(where: {$0 == id}) {
-            arrayOfChosenCards.remove(at: selectetdCardIndex)
+        var deselect = false
+        if let selectetdCardIndex = arrayOfIdsOfChosenCards.firstIndex(where: {$0 == id}) {
+            if arrayOfIdsOfChosenCards.count != 3 {
+                arrayOfIdsOfChosenCards.remove(at: selectetdCardIndex)
+                return
+            } else {
+                deselect = true
+            }
+        }
+        
+        if deck.isEmpty && cardsOnTable.count == 3 && arrayOfIdsOfChosenCards.count == 2 {
+            cardsOnTable.removeAll()
             return
         }
         
-        if arrayOfChosenCards.count == 3 {
-            // TODO: check if previuosly cards is match and replace them
+        if arrayOfIdsOfChosenCards.count == 3 {
+            if isMatched {
+                arrayOfIdsOfChosenCards.forEach { id in
+                    let cardIndex = cardsOnTable.firstIndex(where: {$0.id == id})!
+                    if deck.count > 0 {
+                        cardsOnTable[cardIndex] = deck.removeFirst()
+                    } else {
+                        cardsOnTable.remove(at: cardIndex)
+                    }
+                }
+            }
+            isMatched = false
+            arrayOfIdsOfChosenCards.removeAll()
         }
         
-        arrayOfChosenCards.append(id)
+        if !deselect {
+            arrayOfIdsOfChosenCards.append(id)
+        }
+        
+        if arrayOfIdsOfChosenCards.count == 3 {
+            isMatched = checkMatchingOfCards()
+        }
+    }
+    
+    private func checkMatchingOfCards() -> Bool {
+        return true
+        let arrayOfChosenCards = cardsOnTable.filter {Set(arrayOfIdsOfChosenCards).contains($0.id)}
+        
+        if !checkMatchingOfProperties(arrayOfChosenCards.map{$0.shape.rawValue}) {
+            return false
+        }
+        
+        if !checkMatchingOfProperties(arrayOfChosenCards.map{$0.numberOfShapes.rawValue}) {
+            return false
+        }
+        
+        if !checkMatchingOfProperties(arrayOfChosenCards.map{$0.color.rawValue}) {
+            return false
+        }
+        
+        if !checkMatchingOfProperties(arrayOfChosenCards.map{$0.shading.rawValue}) {
+            return false
+        }
+        
+        return true
+    }
+    
+    private func checkMatchingOfProperties(_ properties: [Int]) -> Bool {
+        let diffValuesCount = Set(properties).count
+        var isMatched = false
+        if diffValuesCount == 1 || diffValuesCount == 3 {
+            isMatched = true
+        }
+        return isMatched
     }
     
     struct Card: Identifiable {

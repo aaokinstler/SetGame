@@ -20,8 +20,12 @@ class SetGame: ObservableObject {
         return model.cardsInDeck
     }
     
+    var isMatched: Bool {
+        return model.isMatched
+    }
+    
     var arrayOfChosenCards: Array<Int> {
-        return model.arrayOfChosenCards
+        return model.arrayOfIdsOfChosenCards
     }
     
     func selectCard(_ id: Int) {
