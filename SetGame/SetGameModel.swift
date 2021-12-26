@@ -91,7 +91,6 @@ struct SetGameModel {
     }
     
     private func checkMatchingOfCards() -> Bool {
-        return true
         let arrayOfChosenCards = cardsOnTable.filter {Set(arrayOfIdsOfChosenCards).contains($0.id)}
         
         if !checkMatchingOfProperties(arrayOfChosenCards.map{$0.shape.rawValue}) {
