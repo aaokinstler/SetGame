@@ -9,8 +9,9 @@ import Foundation
 import SwiftUI
 
 struct SetGameModel {
-    private var deck: Array<Card>
+    private(set) var deck: Array<Card>
     private(set) var cardsOnTable: Array<Card>
+    private(set) var discardPile: Array<Card>
     private(set) var arrayOfIdsOfChosenCards: Array<Int> = []
     private(set) var isMatched = false
     
@@ -22,12 +23,13 @@ struct SetGameModel {
         
         deck = []
         cardsOnTable = []
+        discardPile = []
         
-        var index: Int = 0
+        var index: Int = 1
         CardSymbol.allCases.forEach { symbol in
-            NumberOfShapes.allCases.forEach{ numberOfShapes in
+            NumberOfShapes.allCases.forEach { numberOfShapes in
                 CardColor.allCases.forEach { color in
-                    Shading.allCases.forEach{ shading in
+                    Shading.allCases.forEach { shading in
                         let card = Card(id: index, shape: symbol, numberOfShapes: numberOfShapes, color: color, shading: shading)
                         deck.append(card)
                         index += 1
@@ -37,17 +39,41 @@ struct SetGameModel {
         }
         
         deck = deck.shuffled()
-        for _ in 0...11 {
-            cardsOnTable.append(deck.removeFirst())
+    }
+        
+    mutating func addCardOnTable() {
+        if !deck.isEmpty {
+            cardsOnTable.append(deck.removeLast())
         }
     }
     
-    mutating func addThreeCards() {
-        if deck.count > 0 {
-            for _ in 0...2 {
-                cardsOnTable.append(deck.removeFirst())
-            }
+    mutating func addCardOnTable(_ index: Int) {
+        if !deck.isEmpty {
+            cardsOnTable[index] = deck.removeLast()
         }
+    }
+    
+    mutating func removeCardFromTable(cardId: Int) {
+        guard let cardIndex = cardsOnTable.firstIndex(where: {$0.id == cardId}) else {
+            return
+        }
+        discardPile.append(cardsOnTable.remove(at: cardIndex))
+    }
+    
+    mutating func removeCardFromTable(_ index: Int) {
+        if !cardsOnTable.isEmpty {
+            discardPile.append(cardsOnTable[index])
+//            cardsOnTable[index] = nil
+            
+        }
+    }
+    
+    func getChosenCardsIndices() -> [Int] {
+        var indices = Array<Int>()
+        arrayOfIdsOfChosenCards.forEach { id in
+            indices.append(cardsOnTable.firstIndex(where: {$0.id == id})!)
+        }
+        return indices.sorted()
     }
     
     mutating func selectCard(_ id: Int) {
@@ -67,16 +93,17 @@ struct SetGameModel {
         }
         
         if arrayOfIdsOfChosenCards.count == 3 {
-            if isMatched {
-                arrayOfIdsOfChosenCards.forEach { id in
-                    let cardIndex = cardsOnTable.firstIndex(where: {$0.id == id})!
-                    if deck.count > 0 {
-                        cardsOnTable[cardIndex] = deck.removeFirst()
-                    } else {
-                        cardsOnTable.remove(at: cardIndex)
-                    }
-                }
-            }
+//            if isMatched {
+//                arrayOfIdsOfChosenCards.forEach { id in
+//                    let cardIndex = cardsOnTable.firstIndex(where: {$0.id == id})!
+//                    if deck.count > 0 {
+//                        discardPile.append(cardsOnTable.remove(at: cardIndex))
+//                        cardsOnTable[cardIndex] = deck.removeFirst()
+//                    } else {
+//                        discardPile.append(cardsOnTable.remove(at: cardIndex))
+//                    }
+//                }
+//            }
             isMatched = false
             arrayOfIdsOfChosenCards.removeAll()
         }
@@ -91,6 +118,9 @@ struct SetGameModel {
     }
     
     private func checkMatchingOfCards() -> Bool {
+        
+        return true
+        
         let arrayOfChosenCards = cardsOnTable.filter {Set(arrayOfIdsOfChosenCards).contains($0.id)}
         
         if !checkMatchingOfProperties(arrayOfChosenCards.map{$0.shape.rawValue}) {

@@ -9,11 +9,20 @@ import Foundation
 
 class SetGame: ObservableObject {
     
+    typealias Card = SetGameModel.Card
+    
     @Published private var model = SetGameModel()
     
-    
-    var cardsOnTable: Array<SetGameModel.Card> {
+    var cardsOnTable: Array<Card> {
         return model.cardsOnTable
+    }
+    
+    var deck: Array<Card> {
+        return model.deck
+    }
+    
+    var discardPile: Array<Card> {
+        return model.discardPile
     }
     
     var cardsInDeck: Int {
@@ -32,8 +41,20 @@ class SetGame: ObservableObject {
         model.selectCard(id)
     }
     
-    func addThreeCards() {
-        model.addThreeCards()
+    func addCardOnTable() {
+        model.addCardOnTable()
+    }
+    
+    func addCardOnTable(_ index: Int) {
+        model.addCardOnTable(index)
+    }
+    
+    func removeCardFromTable(_ cardId: Int) {
+        model.removeCardFromTable(cardId)
+    }
+    
+    func getChosenCardsIndices() -> [Int] {
+        model.getChosenCardsIndices()
     }
     
     func newGame() {
